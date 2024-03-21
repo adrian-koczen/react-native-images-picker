@@ -1,4 +1,25 @@
-## Request permissions
+## Installation
+### Expo
+
+Update app.json
+
+```
+"plugins": ["react-native-images-picker/plugin"]
+```
+### Bare react native
+
+Update AndroidManifest.xml
+```
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+```
+Update InfoPlist
+```
+NSPhotoLibraryUsageDescription: 'Access required ...'
+```
+
+## Functions
+
+### Request permissions
 
 ```javascript
 import { requestPermissions } from 'react-native-images-picker'
@@ -8,7 +29,7 @@ const requestPermissionsFunction = async () => {
 }
 ```
 
-## Fetch assets with pagination
+### Fetch assets with pagination
 
 ```javascript
 import { fetchAssets, Asset } from 'react-native-images-picker'
@@ -29,7 +50,7 @@ const App = () => {
 
 ```
 
-#### Asset
+## Asset
 
 | Key | Type     | Value                |
 | :-------- | :------- | :------------------------- |
