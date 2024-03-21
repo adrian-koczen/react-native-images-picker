@@ -1,11 +1,11 @@
 import { TurboModule, TurboModuleRegistry } from 'react-native'
 
-type FetchAssetsOptions = {
+export type FetchAssetsOptions = {
     page: number,
     offset: number
 }
 
-type FetchAsset = {
+export type Asset = {
     width: number,
     height: number,
     path: string
@@ -14,7 +14,7 @@ type FetchAsset = {
 export interface Spec extends TurboModule {
     requiresMainQueueSetup(): boolean,
     requestPermissions(): Promise<boolean>,
-    fetchAssets(options: FetchAssetsOptions): Promise<Array<FetchAsset>>
+    fetchAssets(options: FetchAssetsOptions): Promise<Array<Asset>>
 }
 
 export default TurboModuleRegistry.get<Spec>('ReactNativeImagesPicker') as Spec
