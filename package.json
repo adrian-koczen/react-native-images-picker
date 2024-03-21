@@ -5,6 +5,7 @@
   "license": "MIT",
   "author": "Adrian Koczeń",
   "homepage": "https://github.com/adrian-koczen",
+  "repository": "https://github.com/adrian-koczen/react-native-images-picker",
   "description": "React native images picker for iOS and Android",
   "peerDependencies": {
     "react": "*",
