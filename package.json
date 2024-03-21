@@ -1,0 +1,24 @@
+{
+  "name": "react-native-images-picker",
+  "version": "0.0.1",
+  "main": "js/index.ts",
+  "license": "MIT",
+  "author": "Adrian Koczeń",
+  "homepage": "https://github.com/adrian-koczen",
+  "description": "React native images picker for iOS and Android",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "scripts": {
+    "build": "expo-module build"
+  },
+  "codegenConfig": {
+    "name": "ReactNativeImagesPickerSpec",
+    "type": "modules",
+    "jsSrcsDir": "js",
+    "android": {
+      "javaPackageName": "com.reactnativeimagespicker"
+    }
+  }
+}
