@@ -43,7 +43,8 @@ const App = () => {
             page
         })
 
-    setAssets(prevValue => [...prevValue, ...fetchedAssets])
+        setAssets(prevValue => [...prevValue, ...fetchedAssets])
+    }
 
     ...
 }
