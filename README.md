@@ -17,6 +17,32 @@ Update InfoPlist
 NSPhotoLibraryUsageDescription: 'Access required ...'
 ```
 
+## Component
+
+```javascript
+import { useState } from "react"
+import { Pressable, View, Text } from 'react-native'
+import { ImagesPicker } from 'react-native-images-picker/component'
+
+const App = () => {
+    const [isOpen, setIsOpen] = useState(false)
+
+    return (
+        <View style={{ flex: 1 }}>
+            <Pressable onPress={() => setIsOpen(true)}>
+                <Text>
+                    Open Images Picker
+                </Text>
+            </Pressable>
+            <ImagesPicker
+                isOpen={isOpen}
+                onClose={setIsOpen}
+            />
+        </View>
+    )
+}
+```
+
 ## Functions
 
 ### Request permissions
