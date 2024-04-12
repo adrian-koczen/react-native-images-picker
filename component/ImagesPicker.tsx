@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { requestPermissions } from "react-native-images-picker"
 import { Gestures } from './Gestures'
 import { ImagesPickerProps } from './types'
-import { requestPermissions } from "../js"
 
 export const ImagesPicker: React.FunctionComponent<ImagesPickerProps> = ({
     isOpen,
     height,
-    onClose
+    onClose,
+    onSubmit
 }) => {
     const [hasPermissions, setHasPermissions] = useState(false)
 
@@ -34,6 +35,7 @@ export const ImagesPicker: React.FunctionComponent<ImagesPickerProps> = ({
                 <Gestures
                     height={height}
                     onClose={onClose}
+                    onSubmit={onSubmit}
                 />
             </GestureHandlerRootView>
         )
