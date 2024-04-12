@@ -1,10 +1,11 @@
 import { Fragment, useEffect, useState } from 'react'
-import { StyleSheet, Dimensions, Image, View, Text } from 'react-native'
+import { StyleSheet, Dimensions, Image, View, Text, Pressable } from 'react-native'
 import Animated, { FadeOut } from 'react-native-reanimated'
+import { fetchAssets, Asset } from 'react-native-images-picker'
 import { FlashList } from "@shopify/flash-list"
-import { fetchAssets, Asset } from '../js'
+import { ImagesProps } from './types'
 
-const INITIAL_OFFSET = 40
+const INITIAL_OFFSET = 10
 const ITEMS_PER_ROW = 3
 
 const InitialLoader: React.FunctionComponent = () => (
@@ -14,7 +15,7 @@ const InitialLoader: React.FunctionComponent = () => (
     />
 )
 
-export const Images: React.FunctionComponent = () => {
+export const Images: React.FunctionComponent<ImagesProps> = ({ onSelect }) => {
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(0)
     const [images, setImages] = useState<Array<Asset>>([])
@@ -53,13 +54,16 @@ export const Images: React.FunctionComponent = () => {
                 estimatedItemSize={imageWidth || 100}
                 contentContainerStyle={styles.flashList}
                 renderItem={(item) => (
-                    <View style={styles.imageWrapper}>
+                    <Pressable
+                        onPress={() => onSelect(item.item)}
+                        style={styles.imageWrapper}
+                    >
                         <Image
                             key={item.item.path}
                             source={{ uri: `file://${item.item.path}` }}
                             style={styles.image}
                         />
-                    </View>
+                    </Pressable>
                 )}
                 onEndReached={() => setPage(page + 1)}
             />
