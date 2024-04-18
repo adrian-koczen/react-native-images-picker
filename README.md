@@ -1,3 +1,7 @@
+## Preview
+
+https://github.com/adrian-koczen/react-native-images-picker/assets/3694808/57cdec03-2cfa-4ff6-bd5a-296cf2df8bf8
+
 ## Installation
 ### Expo
 
