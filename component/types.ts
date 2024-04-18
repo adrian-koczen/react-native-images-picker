@@ -12,7 +12,3 @@ export type PickerProps = {
     onClose(state: boolean): void,
     onSubmit(images: Array<Asset>): void
 }
-
-export type ImagesProps = {
-    onSelect(asset: Asset): void
-}
