@@ -1,6 +1,6 @@
 {
   "name": "react-native-images-picker",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "js/index.ts",
   "license": "MIT",
   "author": "Adrian Koczeń",
@@ -19,7 +19,6 @@
     "react": "*",
     "react-native": "*",
     "react-native-gesture-handler": "*",
-    "@shopify/flash-list": "*",
     "react-native-reanimated": "*"
   },
   "scripts": {
