@@ -1,11 +1,11 @@
+import React from 'react'
 import { Fragment, useEffect, useState } from 'react'
-import { StyleSheet, Dimensions, Image, View, Text, Pressable } from 'react-native'
+import { StyleSheet, Dimensions, FlatList } from 'react-native'
 import Animated, { FadeOut } from 'react-native-reanimated'
 import { fetchAssets, Asset } from 'react-native-images-picker'
-import { FlashList } from "@shopify/flash-list"
-import { ImagesProps } from './types'
+import { ImageComponent } from './ImageComponent'
 
-const INITIAL_OFFSET = 10
+const INITIAL_OFFSET = 20
 const ITEMS_PER_ROW = 3
 
 const InitialLoader: React.FunctionComponent = () => (
@@ -15,12 +15,22 @@ const InitialLoader: React.FunctionComponent = () => (
     />
 )
 
-export const Images: React.FunctionComponent<ImagesProps> = ({ onSelect }) => {
+type ImagesProps = {
+    onSelect(asset: Asset): void,
+    selectedImages: Array<Asset>
+}
+
+const MemoizedImageComponent = React.memo(ImageComponent)
+
+export const Images: React.FunctionComponent<ImagesProps> = ({
+    onSelect,
+    selectedImages
+}) => {
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(0)
     const [images, setImages] = useState<Array<Asset>>([])
     const screenWidth = Dimensions.get('window').width
-    const imageWidth = screenWidth / ITEMS_PER_ROW
+    const imageWidth = (screenWidth / 3) - 2
 
     const fetchImages = async () => {
         const images = await fetchAssets({
@@ -47,24 +57,26 @@ export const Images: React.FunctionComponent<ImagesProps> = ({ onSelect }) => {
             {loading && (
                 <InitialLoader />
             )}
-            <FlashList
-                numColumns={3}
+            <FlatList
+                numColumns={ITEMS_PER_ROW}
                 data={images}
                 onEndReachedThreshold={1}
-                estimatedItemSize={imageWidth || 100}
                 contentContainerStyle={styles.flashList}
-                renderItem={(item) => (
-                    <Pressable
-                        onPress={() => onSelect(item.item)}
-                        style={styles.imageWrapper}
-                    >
-                        <Image
-                            key={item.item.path}
-                            source={{ uri: `file://${item.item.path}` }}
-                            style={styles.image}
+                keyExtractor={(item) => item.path}
+                removeClippedSubviews={true}
+                extraData={selectedImages}
+                renderItem={(item) => {
+                    const isSelected = selectedImages.some(image => image.path === item.item.path)
+
+                    return (
+                        <MemoizedImageComponent
+                            isSelected={isSelected}
+                            asset={item.item}
+                            onSelect={onSelect}
+                            imageWidth={imageWidth}
                         />
-                    </Pressable>
-                )}
+                    )
+                }}
                 onEndReached={() => setPage(page + 1)}
             />
         </Fragment>
@@ -72,15 +84,9 @@ export const Images: React.FunctionComponent<ImagesProps> = ({ onSelect }) => {
 }
 
 const styles = StyleSheet.create({
-    image: {
-        width: '100%',
-        aspectRatio: 1
-    },
-    imageWrapper: {
-        padding: 1
-    },
     flashList: {
-        backgroundColor: '#000000'
+        backgroundColor: '#000000',
+        justifyContent: 'space-between'
     },
     loading: {
         width: '100%',

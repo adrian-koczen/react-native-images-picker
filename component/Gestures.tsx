@@ -1,8 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react"
-import { Dimensions, Pressable, StyleSheet, View, Button } from "react-native"
+import { Dimensions, Pressable, StyleSheet, View } from "react-native"
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { Easing, runOnJS, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
-
 import { PickerProps } from './types'
 import { Images } from './Images'
 import { Actions } from "./Actions"
@@ -13,6 +12,7 @@ export const Gestures: React.FunctionComponent<PickerProps> = ({
     onSubmit,
     height
 }) => {
+    const [shouldHideActions, setShouldHideActions] = useState(false)
     const [shouldClose, setShouldClose] = useState(false)
     const dimensions = Dimensions.get('window')
     const initialHeight = height
@@ -66,6 +66,10 @@ export const Gestures: React.FunctionComponent<PickerProps> = ({
             beginValue.value = event.y
         })
         .onUpdate(event => {
+            if (event.translationY > 0) {
+                setShouldHideActions(true)
+            }
+
             pickerHeight.value = Math.min(pickerSavedHeight.value - event.translationY, dimensions.height * 0.9)
         })
         .onEnd(() => {
@@ -90,14 +94,19 @@ export const Gestures: React.FunctionComponent<PickerProps> = ({
                             <View style={styles.line} />
                         </View>
                     </GestureDetector>
-                    <Images onSelect={onSelect} />
-                    <Actions
-                        onSubmit={value => {
-                            onSubmit(value)
-                            handleClose()
-                        }}
+                    <Images
+                        onSelect={onSelect}
                         selectedImages={selectedImages}
                     />
+                    {(selectedImages.length > 0 && !shouldHideActions) && (
+                        <Actions
+                            onSubmit={value => {
+                                onSubmit(value)
+                                handleClose()
+                            }}
+                            selectedImages={selectedImages}
+                        />
+                    )}
                 </Animated.View>
         </Fragment>
     )
