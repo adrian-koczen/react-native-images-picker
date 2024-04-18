@@ -1,6 +1,6 @@
 {
   "name": "react-native-images-picker",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "main": "js/index.ts",
   "license": "MIT",
   "author": "Adrian Koczeń",
