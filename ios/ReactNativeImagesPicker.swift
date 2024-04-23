@@ -33,8 +33,8 @@ class ReactNativeImagesPicker: NSObject {
         
         var arrayOfAsset: Array<PHAsset> = []
         let fetchOptions = FetchAssetsOptions(page: options["page"], offset: options["offset"])
-        var result: Array<Dictionary<String, Any>?> =  Array(repeating: nil, count: fetchOptions.options.offset)
-        let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions.options)
+        var result: Array<Dictionary<String, Any>?> =  Array(repeating: nil, count: fetchOptions.options.offset)        
+        let assets = PHAsset.fetchAssets(with: fetchOptions.fetchAssetsOptions)
         
         assets.enumerateObjects{ (asset, count, stop) in
             if (arrayOfAsset.count < fetchOptions.options.offset && count >= fetchOptions.skip) {

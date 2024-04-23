@@ -18,7 +18,8 @@ class FetchAssetsOptions {
     ) {
         self.options.page = page ?? 0
         self.options.offset = offset ?? 0
-        self.fetchAssetsOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        self.fetchAssetsOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        self.fetchAssetsOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
     }
 }
 
