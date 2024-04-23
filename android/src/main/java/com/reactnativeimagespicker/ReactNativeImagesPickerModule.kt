@@ -58,17 +58,20 @@ class ReactNativeImagesPickerModule(reactContext: ReactApplicationContext) : Nat
     val projection = arrayOf(
             MediaStore.Images.Media.DATA,
             MediaStore.Images.Media.HEIGHT,
-            MediaStore.Images.Media.WIDTH
+            MediaStore.Images.Media.WIDTH,
+            MediaStore.Images.ImageColumns.DATE_ADDED
     )
     val page = options.getInt("page")
     val offset = options.getInt("offset")
     val skip = page * offset
+    val sortOrder = "${MediaStore.Images.ImageColumns.DATE_ADDED} DESC"
 
     val cursor = activity?.contentResolver?.query(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             projection,
             null,
-            null
+            null,
+            sortOrder
     )
 
     if (cursor != null) {

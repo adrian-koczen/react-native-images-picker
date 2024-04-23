@@ -7,6 +7,7 @@ open class ExtendedOptions: PHFetchOptions {
 
 class FetchAssetsOptions {
     let options = ExtendedOptions()
+    let fetchAssetsOptions = PHFetchOptions()
     var skip: Int {
         return options.page * options.offset
     }
@@ -17,6 +18,7 @@ class FetchAssetsOptions {
     ) {
         self.options.page = page ?? 0
         self.options.offset = offset ?? 0
+        self.fetchAssetsOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
     }
 }
 
